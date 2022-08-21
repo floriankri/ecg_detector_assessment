@@ -185,3 +185,6 @@ codegen/
 
 # Octave session info
 octave-workspace
+
+# Big ass matrices
+*.mat

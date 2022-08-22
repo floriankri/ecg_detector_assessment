@@ -1,0 +1,48 @@
+#!/bin/bash
+
+set -e
+set -x
+
+if [ $# != 3 ]; then
+   echo "Usage: $0 repository branch version" >&2
+   exit 1
+fi
+
+repo=$1
+branch=$2
+version=$3
+
+package=wfdb-app-toolbox-$version
+
+builddir=/tmp/toolbox-build
+outdir=/tmp
+make="make -j"
+
+rm -rf $builddir
+
+git clone --branch $branch --depth 1 $repo $builddir
+
+cd $builddir
+export SOURCE_DATE_EPOCH=$(git log -1 --pretty=%ct)
+strip_nondeterminism="strip-nondeterminism -T${SOURCE_DATE_EPOCH}"
+
+git archive --prefix=wfdb-app-toolbox-$version/ HEAD \
+    | gzip -c -9 -n > $outdir/$package.tar.gz
+
+# FIXME: use wfdb-toolbox-build chroot for this
+schroot -p -cjessie make jar7 &> jar7.log
+$strip_nondeterminism mcode/*.jar
+
+$make -C mcode/nativelibs download &> download.log
+
+(cd dependencies/jni && ./autogen.sh) &> autogen.log
+
+$make -C mcode/nativelibs install-linux install-windows install-macosx &> nativelibs.log
+
+x86_64-apple-darwin9-strip -S mcode/nativelibs/macosx/bin/ecgpuwave
+x86_64-apple-darwin9-strip -S mcode/nativelibs/macosx/lib/librdsampjni.dylib
+x86_64-apple-darwin9-strip -S mcode/nativelibs/macosx/lib/libwfdb.10.dylib
+
+make package APP_NAME=wfdb-app-toolbox-$version.zip
+$strip_nondeterminism $package.zip
+mv $package.zip $outdir/

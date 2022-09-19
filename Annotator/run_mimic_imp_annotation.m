@@ -232,12 +232,12 @@ function up = setup_universal_params
 close all
 
 %% folderpaths
-up.paths.root_data_folder = '/Users/petercharlton/Desktop/temp/imp_sqi/';
+up.paths.root_data_folder = 'C:\Users\flori\OneDrive\Dokumente\TU\Bachelor Thesis\Code\Annotator\data\';
 up.paths.data_file = [up.paths.root_data_folder, 'MIMIC_PERform_truncated_train_all_data.mat'];
 up.paths.resultspath = [up.paths.root_data_folder, 'SQI_development', filesep];
 up.paths.annotations_folder = [up.paths.root_data_folder, '2019_annotations', filesep];
 up.paths.annotations_file = [up.paths.root_data_folder, '2019_annotations', filesep, 'temp.mat'];
-up.paths.dlg = '/Users/petercharlton/Google Drive/Work/Projects/PhD/Github/phd/Tools/Other Scripts/MFquestdlg/';
+up.paths.dlg = 'C:\Users\flori\OneDrive\Dokumente\TU\Bachelor Thesis\Code\Annotator\required\';
 addpath(up.paths.dlg)
 if ~exist(up.paths.annotations_folder, 'dir')
     mkdir(up.paths.annotations_folder)

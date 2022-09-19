@@ -4,27 +4,24 @@ load('DATA_PQRST_real');
 load('DATA_f_waves_real');
 DATAnoises = load('DATA_noises_real');
 
-%StructLength = length(rrLength_array)*length(APBrate_array)*length(onlyRR_array)*length(medEpis_array)*length(stayInAF_array)*length(AFburden_array)*length(noiseType_array)*length(noiseRMS_array)*length(realRRon_array)*length(realVAon_array);
-%outputdata(StructLength) = struct();
 outputdata = struct();
 counter = 1;
 
-for rrLength = 1 : length(rrLength_array)
-    for APBrate = 1 : length(APBrate_array)
-        for onlyRR = 1 : length(onlyRR_array)
-            for medEpis = 1 : length(medEpis_array)
-                for stayInAF = 1 : length(stayInAF_array)
-                    for AFburden = 1 : length(AFburden_array)
-                        for noiseType = 1 : length(noiseType_array)
-                            for noiseRMS = 1 : length(noiseRMS_array)
-                                for realRRon = 1 : length(realRRon_array)
-                                    for realVAon = 1 : length(realVAon_array)
-                                        [simPAFdata, initialParameters] = Adapted_simPAF_ECG_generator(rrLength_array(rrLength), realRRon_array(realRRon), realVAon_array(realVAon), realAAon_array(realVAon), AFburden_array(AFburden), stayInAF_array(stayInAF), APBrate_array(APBrate), noiseType_array(noiseType), noiseRMS_array(noiseRMS), onlyRR_array(onlyRR), DATApqrst, DATAfWaves, DATAnoises);
+for rrLength = rrLength_array
+    for APBrate = APBrate_array
+        for onlyRR = onlyRR_array
+            for AFburden = AFburden_array
+                for medEpis = medEpis_array
+                    for stayInAF = stayInAF_array
+                        for noiseType = noiseType_array
+                            for noiseRMS =noiseRMS_array
+                                if noiseType == 0 & noiseRMS ~= 0
+                                    continue
+                                end
+                                for realRRon = realRRon_array
+                                    for realVAon = realVAon_array
+                                        [simPAFdata, initialParameters] = Adapted_simPAF_ECG_generator(rrLength, realRRon, realVAon, realVAon, AFburden, stayInAF, APBrate, noiseType, noiseRMS, onlyRR, DATApqrst, DATAfWaves, DATAnoises);
                                         counterstr = append('s',num2str(counter));
-                                        %outputdata.(counterstr).simPAFdata = simPAFdata;
-                                        %outputdata.(counterstr).initialParameters = initialParameters;
-                                        %outputdata(counter).simPAFdata = simPAFdata;
-                                        %outputdata(counter).initialParameters = initialParameters;
                                         outputdata.(counterstr) = struct( ...
                                             'rr', simPAFdata.rr, ...
                                             'multileadECG', simPAFdata.multileadECG, ...

@@ -7,9 +7,9 @@ load('DATA_RR_AF_real');
 load('DATA_RR_SR_real');
 
 outputdata = struct();
-counter = 1;
 
 for i =  1:repeats
+    counter = 1;
     for rrLength = rrLength_array
         for APBrate = APBrate_array
             for onlyRR = onlyRR_array

@@ -58,7 +58,9 @@ up = setup_universal_params;
 %% Initialisation
 
 % Load data
-load(up.paths.data_file)
+if nargin~=1
+    load(up.paths.data_file)
+end
 subjects = 1:length(data);   % create a list of subjects which are to be analysed.
 
 % mode

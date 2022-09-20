@@ -192,3 +192,5 @@ octave-workspace
 Python/wfdb-python-main/
 
 TestDatabases/
+
+MATLAB/wfdb_toolbox

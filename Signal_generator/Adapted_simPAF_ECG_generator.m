@@ -1,4 +1,4 @@
-function [simPAFdata, initialParameters] = Adapted_simPAF_ECG_generator(rrLength, realRRon, realVAon, realAAon, AFburden, stayInAF, APBrate, noiseType, noiseRMS, onlyRR, DATApqrst, DATAfWaves, DATAnoises)
+function [simPAFdata, initialParameters] = Adapted_simPAF_ECG_generator(rrLength, realRRon, realVAon, realAAon, AFburden, stayInAF, APBrate, noiseType, noiseRMS, onlyRR, DATApqrst, DATAfWaves, DATAnoises, DATArrSR, DATArrAF)
 % [] = simPAF_ECG_generator() returns a 15-by-N matrix containing 15 lead
 % ECGs. Three types of ECG signals can be generated: sinus rhythm (SR) (AF burden set to 0, 
 % AF (AF burden set to 1) or PAF (AF burden any value from the interval 
@@ -101,7 +101,7 @@ switch onlyRR
         % Generate initial parameters (fibrillatory frequency)
         fibFreqz = simPAF_gen_initial_parameters;  
         % Generate RR intervals
-        [rrIn, targets_SR_AF, targets_APB, pafBoundaries, pafEpisLength] = simPAF_gen_rr_intervals(rrLength, fibFreqz, APBrate, realRRon, stayInAF, AFburden);
+        [rrIn, targets_SR_AF, targets_APB, pafBoundaries, pafEpisLength] = Adapted_simPAF_gen_rr_intervals(rrLength, fibFreqz, APBrate, realRRon, stayInAF, AFburden, DATArrSR, DATArrAF);
         % Generate multilead ventricular activity
         [QRSindex, rr, multileadVA, ecgLength] = Adapted_simPAF_gen_multilead_VA(rrLength, targets_SR_AF, rrIn, AFburden, realVAon, realAAon, DATApqrst);
         % Generate multilead atrial activity

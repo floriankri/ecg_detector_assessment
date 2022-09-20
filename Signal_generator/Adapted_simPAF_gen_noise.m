@@ -2,10 +2,10 @@ function multileadNoise = Adapted_simPAF_gen_noise(ecgLength, noiseType, noiseRM
 %
 % multileadNoise = simPAF_gen_noise() returns physiological noises obtained
 % from the MIT-BIH Noise Stress Test DATAnoisesbase. The signals of the
-% the MIT–BIH Noise Stress Test DATAnoisesbase is used as a noise source for 
+% the MITï¿½BIH Noise Stress Test DATAnoisesbase is used as a noise source for 
 % orthogonal leads X and Y, whereas noise for lead Z is obtained as the sum 
 % of squares of these two noises of leads X and Y. Then, an inverse of 
-% Dowers’s transformation matrix is applied to generate noise in the remaining 
+% Dowersï¿½s transformation matrix is applied to generate noise in the remaining 
 % 12 ECG leads. Ultimately, the noise is rescaled to the desired RMS value.
 %
 % Copyright (C) 2017  Andrius Petrenas
@@ -24,10 +24,10 @@ function multileadNoise = Adapted_simPAF_gen_noise(ecgLength, noiseType, noiseRM
 noiseLength = 1805556; % Noise length
 if ecgLength < noiseLength
     noiseStart = randi([1 (noiseLength-ecgLength)]); % take starting point randomly
-    noiseStart = 1;
+    %noiseStart = 1;
 else
     noiseStart = randi([1 noiseLength/2]); %1805556 - cut half of length noise segments
-    noiseStart = 1;
+    %noiseStart = 1;
     cycles = ceil(ecgLength/(noiseLength/2));
     noiseTemp = [];
 end

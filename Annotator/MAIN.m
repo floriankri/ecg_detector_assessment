@@ -1,5 +1,7 @@
 clear all
 
+path
+
 [signal,Fs,tm]=rdsamp('mitdb/100', [1 2],10000);
 
 data(1).ekg.fs = Fs;

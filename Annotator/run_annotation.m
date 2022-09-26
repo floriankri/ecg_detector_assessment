@@ -297,8 +297,8 @@ function [axis_h, h2] = annotation_plotter2(annotations_filepath, h, imp, grey_e
     %% Calculate and plot mix signal
     if up.mode == 2
         % plot annotations which are relevant to this plot:
-        %breathels = find(pk_anns.t>=imp.t(grey_els(1)) & pk_anns.t<=imp.t(grey_els(end)));
-        %plot(pk_anns.t(breathels) - init_time,pk_anns.v(breathels)-mean_imp, 'ro','LineWidth',4)
+        breathels = find(pk_anns.t>=imp.t(grey_els(1)) & pk_anns.t<=imp.t(grey_els(end)));
+        plot(pk_anns.t(breathels) - init_time,pk_anns.v(breathels)-mean_imp, 'ro','LineWidth',4)
         breathels = find(pk_anns.t>=imp.t(rel_els(1)) & pk_anns.t<=imp.t(rel_els(end)));
         plot(pk_anns.t(breathels) - init_time,pk_anns.v(breathels), 'ro','LineWidth',4)
         

@@ -18,7 +18,7 @@ for i =  1:repeats
                         for stayInAF = stayInAF_array
                             for noiseType = noiseType_array
                                 for noiseRMS =noiseRMS_array
-                                    if noiseType == 0 & noiseRMS ~= 0
+                                    if (noiseType == 0 & noiseRMS ~= 0)
                                         continue
                                     end
                                     for realRRon = realRRon_array

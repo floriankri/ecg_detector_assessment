@@ -1,4 +1,4 @@
-function run_annotation(data)
+function run_annotation(data,ver)
     % run_mimic_imp_annotation is designed to annotate the quality and breaths
     % of signals in the impedance pneumography signal quality index (SQI) dataset
     % (extracted from the MIMIC III database). It was used to evaluate the
@@ -58,7 +58,9 @@ function run_annotation(data)
     %% Initialisation
     
     % Load data
-    if nargin~=1
+    if nargin==1 
+        ver = 'v000';
+    elseif nargin==0
         load(up.paths.data_file)
     end
     subjects = 1:length(data);   % create a list of subjects which are to be analysed.
@@ -80,7 +82,7 @@ function run_annotation(data)
     operator=input('(To enter review mode, type  review  )\n\nOtherwise, please type your first and last initial,\nand press enter:\n','s');
     %operator = 'PC';
     if strcmp(operator, 'review') == 1
-        paw_verification_script_checker(subjects, data, up);
+        paw_verification_script_checker(subjects, data, up, ver);
         return
     end
     
@@ -124,7 +126,7 @@ function run_annotation(data)
                 endtime = starttime + up.win_length;
                 
                 % Skip if this window has already been annotated
-                savename = [up.paths.annotations_folder, 'ImP_SQI' num2str(s), '_' operator '_an.mat'];
+                savename = [up.paths.annotations_folder, ver, '_f' num2str(s), '_' operator '.mat'];
                 if exist(savename, 'file')
                     temp = load(savename);
                     rel_els = temp.pk_anns.t>=starttime & temp.pk_anns.t<=endtime;
@@ -214,10 +216,13 @@ function run_annotation(data)
                 else
                     new_data.qual.t = []; qual.v = [];
                 end
+                new_data.up.paths.annotations_file = savename;
                 pk_anns = new_data.pk_anns;
                 qual = new_data.qual;
                 up = new_data.up;
+                
                 save(savename, 'pk_anns', 'qual', 'up')
+                up.paths.annotations_file = [up.paths.root_data_folder, '2022_annotations', filesep, 'temp.mat'];
                 clear old_data new_data temp pk_anns qual
             end
             
@@ -237,8 +242,8 @@ close all
     up.paths.root_data_folder = 'C:\Users\flori\OneDrive\Dokumente\TU\Bachelor Thesis\Code\Annotator\data\';
     up.paths.data_file = [up.paths.root_data_folder, 'MIMIC_PERform_truncated_train_all_data.mat'];
     up.paths.resultspath = [up.paths.root_data_folder, 'SQI_development', filesep];
-    up.paths.annotations_folder = [up.paths.root_data_folder, '2019_annotations', filesep];
-    up.paths.annotations_file = [up.paths.root_data_folder, '2019_annotations', filesep, 'temp.mat'];
+    up.paths.annotations_folder = [up.paths.root_data_folder, '2022_annotations', filesep];
+    up.paths.annotations_file = [up.paths.root_data_folder, '2022_annotations', filesep, 'temp.mat'];
     up.paths.dlg = 'C:\Users\flori\OneDrive\Dokumente\TU\Bachelor Thesis\Code\Annotator\required\';
     addpath(up.paths.dlg)
     if ~exist(up.paths.annotations_folder, 'dir')
@@ -366,7 +371,7 @@ function [pk_anns, TRS]= Click_CallBack2(h,e, a, axis_h, h2, up, annotations_fil
 
 end
 
-function paw_verification_script_checker(subjects, data, up)
+function paw_verification_script_checker(subjects, data, up, ver)
 
     % this function is used to check that the results can indeed be plotted
     % back on the original waveform:
@@ -389,13 +394,16 @@ function paw_verification_script_checker(subjects, data, up)
     else
         subjects = subjects(start_subject_el:end);
         for s = subjects(1:end)
+
+            loadname = [up.paths.annotations_folder, ver, '_f' num2str(s), '_' operator '.mat'];
     
             %% Load and process ECG signal
             ekg = load_and_process_ecg(data, s, up);
             
             %% Load annotations
             up_copy = up;
-            load(up.paths.annotations_file);
+            %load(up.paths.annotations_file);
+            load(loadname);
             up = up_copy; clear up_copy
             
             %% plot waveforms and annotations
@@ -412,7 +420,7 @@ function paw_verification_script_checker(subjects, data, up)
                 
                 % Plot
                 h=figure('OuterPosition',[1 1 scrsz(3) scrsz(4)]);
-                [axis_h, h2] = annotation_plotter2(up.paths.annotations_file, h, ekg, grey_els, rel_els, s, subjects, up, win, NUMWINS, starttime);
+                [axis_h, h2] = annotation_plotter2(loadname, h, ekg, grey_els, rel_els, s, subjects, up, win, NUMWINS, starttime);
                 
                 % close plot after a pause
                 pause

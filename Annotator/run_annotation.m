@@ -65,6 +65,7 @@ function run_annotation(data,ver)
     end
     subjects = 1:length(data);   % create a list of subjects which are to be analysed.
     
+
     % mode
     up.mode = 2;        % select 1 if annotating high or low quality, 2 if annotating breaths
     if up.mode == 1, fprintf('\n *** Mode selected: quality annotation *** '), elseif up.mode == 2, fprintf('\n *** Mode selected: Breath annotation *** '), end

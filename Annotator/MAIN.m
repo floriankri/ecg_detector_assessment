@@ -1,6 +1,6 @@
 clear all
 
-version = 'v004';
+version = 'v005';
 
 [signal,Fs,tm]=rdsamp('mitdb/100', 1,10000);
 

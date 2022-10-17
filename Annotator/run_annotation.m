@@ -102,6 +102,11 @@ function run_annotation(data,ver)
     else
         subjects = subjects(start_subject_el:end);
         for s = subjects(1:end)
+
+
+            if strcmp(data(s).name,'') == 1
+                data(s).name = 'standard'
+            end
             
             %% Load and process ECG signal
             ekg = load_and_process_ecg(data, s, up);
@@ -125,6 +130,10 @@ function run_annotation(data,ver)
                 % Find window timings
                 starttime = ekg.t(1)+(win-1)*up.win_length;
                 endtime = starttime + up.win_length;
+
+                if win == NUMWINS
+                    endtime = ekg.t(end);
+                end
                 
                 % Skip if this window has already been annotated
                 savename = [up.paths.annotations_folder, ver, '_f' num2str(s), '_' operator '.mat'];
@@ -218,6 +227,9 @@ function run_annotation(data,ver)
                     new_data.qual.t = []; qual.v = [];
                 end
                 new_data.up.paths.annotations_file = savename;
+                new_data.up.name = data(s).name;
+                new_data.up.fs = data(s).ekg.fs;
+                new_data.up.annotator = operator;
                 pk_anns = new_data.pk_anns;
                 qual = new_data.qual;
                 up = new_data.up;
@@ -415,6 +427,11 @@ function paw_verification_script_checker(subjects, data, up, ver)
                 % Setup
                 starttime = ekg.t(1)+edge_time+(win-1)*up.win_length;
                 endtime = starttime + up.win_length;
+
+                if win == NUMWINS
+                    endtime = ekg.t(end);
+                end
+
                 rel_els = find(ekg.t >= starttime & ekg.t < endtime);
                 grey_els = find(ekg.t >= (starttime - edge_time) & ekg.t < (endtime + edge_time));
                 scrsz = get(0,'ScreenSize');

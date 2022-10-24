@@ -234,6 +234,14 @@ function run_annotation(data,ver)
                 qual = new_data.qual;
                 up = new_data.up;
                 
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                currentFolder = pwd;
+                cd(up.paths.database);
+                annotations = floor(pk_anns.t*up.fs);
+                wrann([up.name],'atr',annotations);
+                cd(currentFolder);
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
                 save(savename, 'pk_anns', 'qual', 'up')
                 up.paths.annotations_file = [up.paths.root_data_folder, '2022_annotations', filesep, 'temp.mat'];
                 clear old_data new_data temp pk_anns qual
@@ -258,6 +266,7 @@ close all
     up.paths.annotations_folder = [up.paths.root_data_folder, '2022_annotations', filesep];
     up.paths.annotations_file = [up.paths.root_data_folder, '2022_annotations', filesep, 'temp.mat'];
     up.paths.dlg = 'C:\Users\flori\OneDrive\Dokumente\TU\Bachelor Thesis\Code\Annotator\required\';
+    up.paths.database = 'C:\Users\flori\OneDrive\Dokumente\TU\Bachelor Thesis\Code\TestDatabases\annotator_test\';
     addpath(up.paths.dlg)
     if ~exist(up.paths.annotations_folder, 'dir')
         mkdir(up.paths.annotations_folder)
@@ -392,7 +401,7 @@ function paw_verification_script_checker(subjects, data, up, ver)
     fprintf('\n\n\n\n\n~~~~~~~  Reviewing Annotations  ~~~~~~~\n');
     
     %% find out the file details
-    operator=input('Please type the first and last initial,\nof the operator whose annotations\nyou''d like to review, and press enter:\n','s');
+    %operator=input('Please type the first and last initial,\nof the operator whose annotations\nyou''d like to review, and press enter:\n','s');
     question=input('\nWould you like to start from the \nfirst subject? (y or n, followed by enter)\n', 's');
     if strcmp(question, 'n') == 1
         start_subject = input('\nWhich subject?\n', 's');
@@ -401,6 +410,12 @@ function paw_verification_script_checker(subjects, data, up, ver)
         start_subject = 1;
     end
     
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % new code
+    files = dir(fullfile(up.paths.database,['*.atr']));
+    subjects = 1:length(files);
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
     start_subject_el = find(subjects == start_subject);
     if isempty(start_subject_el)
         fprintf('\nThis subject doesn''t exist. Try all over again.');
@@ -408,16 +423,30 @@ function paw_verification_script_checker(subjects, data, up, ver)
         subjects = subjects(start_subject_el:end);
         for s = subjects(1:end)
 
-            loadname = [up.paths.annotations_folder, ver, '_f' num2str(s), '_' operator '.mat'];
-    
-            %% Load and process ECG signal
-            ekg = load_and_process_ecg(data, s, up);
+            %loadname = [up.paths.annotations_folder, ver, '_f' num2str(s), '_' operator '.mat'];
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % new code
+            currentFolder = pwd;
+            cd(up.paths.database);
+            loadname = files(s).name(1:(end-4));
             
-            %% Load annotations
-            up_copy = up;
-            %load(up.paths.annotations_file);
-            load(loadname);
-            up = up_copy; clear up_copy
+            [ekg.v,ekg.fs,~]=rdsamp([filesep, loadname,'.dat']);
+            ekg.t = [0:(length(ekg.v)-1)]/ekg.fs;
+            ann = rdann(loadname,'atr');
+            ann = ann/ekg.fs;
+
+            cd(currentFolder);
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            
+
+%             %% Load and process ECG signal
+%             ekg = load_and_process_ecg(data, s, up);
+%             
+%             %% Load annotations
+%             up_copy = up;
+%             %load(up.paths.annotations_file);
+%             load(loadname);
+%             up = up_copy; clear up_copy
             
             %% plot waveforms and annotations
             duration_of_signal = ekg.t(end) - ekg.t(1);
@@ -438,8 +467,36 @@ function paw_verification_script_checker(subjects, data, up, ver)
                 
                 % Plot
                 h=figure('OuterPosition',[1 1 scrsz(3) scrsz(4)]);
-                [axis_h, h2] = annotation_plotter2(loadname, h, ekg, grey_els, rel_els, s, subjects, up, win, NUMWINS, starttime);
+                %[axis_h, h2] = annotation_plotter2(loadname, h, ekg, grey_els, rel_els, s, subjects, up, win, NUMWINS, starttime);
                 
+
+                ftsize = 16; lwidth = 2;
+                init_time = ekg.t(rel_els(1));
+                
+                mean_imp = mean(ekg.v(rel_els));
+                h3 = plot(ekg.t(rel_els) - init_time, zeros(1,length(rel_els)), 'k', 'LineWidth', lwidth); hold on    % plot zero line on Paw plot
+                set(h3, 'HandleVisibility', 'off')
+                h1 = plot(ekg.t(grey_els) - init_time, ekg.v(grey_els) - mean_imp, 'Color', [0.5 0.5 0.5], 'LineWidth', lwidth); hold on,    % plot Paw (grey)
+                set(h1, 'HandleVisibility', 'off')
+                h2 = plot(ekg.t(rel_els) - init_time, ekg.v(rel_els) - mean_imp, 'LineWidth', lwidth);    % plot Paw
+                set(h2, 'HandleVisibility', 'off')
+                xlim([ekg.t(grey_els(1)) - init_time, ekg.t(grey_els(end)) - init_time])
+                
+                %% Calculate and plot mix signal
+                if up.mode == 2
+                    % plot annotations which are relevant to this plot:
+                    breathels = find(ann>=ekg.t(grey_els(1)) & ann<=ekg.t(grey_els(end)));
+                    plot(ann(breathels) - init_time,ekg.v(breathels)-mean_imp, 'ro','LineWidth',4)
+                    breathels = find(ann>=ekg.t(rel_els(1)) & ann<=ekg.t(rel_els(end)));
+                    %plot(ann(breathels) - init_time,ann(breathels), 'ro','LineWidth',4)
+                    plot(ann(breathels) - init_time,ekg.v(breathels)-mean_imp, 'ro','LineWidth',4)
+
+                    title(['Please annotate the peaks (red) then press a button  -  ' num2str(win) ' of ' num2str(NUMWINS) ' windows for subject ' num2str(s) ' of ' num2str(subjects(end))], 'FontSize', ftsize)
+                    ylabel('ECG', 'FontSize', ftsize), xlabel('Time [s]', 'FontSize', ftsize);
+                    set(gca,'XTick',((ekg.t(rel_els(1)) - init_time):5:ceil((ekg.t(rel_els(end)) - init_time))), 'YTick', [])
+                    set(gca, 'FontSize', ftsize)
+                end
+
                 % close plot after a pause
                 pause
                 close all

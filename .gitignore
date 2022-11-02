@@ -196,3 +196,5 @@ TestDatabases/
 MATLAB/wfdb_toolbox
 
 *.pkl
+
+*.zip

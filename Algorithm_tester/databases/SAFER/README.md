@@ -1,0 +1,1 @@
+Store SAFER data in this folder and run the analysis in `main.ipynb`.

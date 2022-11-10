@@ -1,7 +1,7 @@
 # Assessment of Electrocardiogram Beat Detectors Using Synthetic and Real-World Data
 This repository contains three main resources. **Algorithm_tester** contains databases, algorithms and a script to test them. **Annotator** has a MATLAB script that allows annotation of WFDB ECG signals. **Signal_generator** contains MATLAB scripts that can generate synthetic ECG signals.
 
-This code has been created and tested with **Visual Studio Code 1.73.0** and **MATLAB R2022a**. The versions of other libraries used can be found in `requirements.txt`.
+This code has been created and tested with **Visual Studio Code 1.73.0**, **MATLAB R2022a**, and **Python 3.9**. The versions of other libraries used can be found in `requirements.txt`.
 
 ## Authors
 - Florian Kristof [floriankri](https://github.com/floriankri)
@@ -15,10 +15,11 @@ This code has been created and tested with **Visual Studio Code 1.73.0** and **M
 ## Installation
 ### Algorithm Tester
 1. Install **Visual Studio Code**
-2. Install **MATLAB R2022a** or higher
-3. Install **MATLAB Engine API for Python** available [here](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html) in Visual Studio Code
-4. `pip install requirements.txt` in Visual Studio Code
-5. Try executing `/Algorithm_tester/main.ipynb` and see if and where it runs into errors
+2. Install **Python 3.9**
+3. Install **MATLAB R2022a** or higher
+4. Install **MATLAB Engine API for Python** available [here](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html) in Visual Studio Code
+5. `pip install requirements.txt` in Visual Studio Code
+6. Try executing `/Algorithm_tester/main.ipynb` and see if and where it runs into errors
 
 ### Annotator
 1. Install **MATLAB R2022a** or higher

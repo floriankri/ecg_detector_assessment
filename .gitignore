@@ -198,3 +198,7 @@ MATLAB/wfdb_toolbox
 *.pkl
 
 *.zip
+
+# UNSW files
+!medianfilter.mexw64
+!minmaxfilter.mexw64

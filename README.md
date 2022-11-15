@@ -6,8 +6,8 @@ This code has been created and tested with **Visual Studio Code 1.73.0**, **MATL
 ## Authors
 - Florian Kristof [floriankri](https://github.com/floriankri)
 - Peter Charlton [peterhcharlton](https://github.com/peterhcharlton)
-- Leon Nissen
-- Maximilian Kapsecker
+- Leon Nissen [LeonNissen](https://github.com/LeonNissen)
+- Maximilian Kapsecker [NumericalMax](https://github.com/NumericalMax)
 
 ## Citation/DOI
 

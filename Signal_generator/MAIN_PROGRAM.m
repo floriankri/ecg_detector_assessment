@@ -18,8 +18,8 @@ clc
 % For more information see help simPAF_ECG_generator!!!
 
 % ---Initial parameters---
-rrLength = 50;     % A desired ECG signal length (the number of RR intervals) 
-APBrate = 0.10;    % Rate of atrial premature beats (APB). A number between 0 and 0.5
+rrLength = 40;     % A desired ECG signal length (the number of RR intervals) 
+APBrate = 0;    % Rate of atrial premature beats (APB). A number between 0 and 0.5
 onlyRR = 0;        % 1 - only RR intervals are generated, 0 - multilead ECG is generated
 
 medEpis = 15;       % Median duration of an atrial fibrillation (AF) episode
@@ -29,7 +29,7 @@ AFburden = 0.8;     % AF burden. 0 - the entire signal is sinus rhythm (SR), 1 -
 noiseType = 0;      % Type of noise. A number from 0 to 4. 0 - no noise added (noise RMS = 0 mV), 
                     % 1 - motion artefacts, 2 - electrode movement artefacts, 3 - baseline wander, 
                     % 4 - mixture of type 1, type 2 and type 3 noises
-noiseRMS = 0.02;    % Noise level in milivolts 
+noiseRMS = 0.05;    % Noise level in milivolts 
 
 realRRon = 1;       % 1 - real RR series are used, 0 - synthetic
 realVAon = 1;       % 1 - real ventricular activity is used, 0 - synthetic

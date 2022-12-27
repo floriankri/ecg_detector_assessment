@@ -1,4 +1,11 @@
-function [qrs,RRlist,nRR,mRR,nSections] = UNSW_QRSDetector(rawecg,fs,mask,isplot)
+function unswdata = UNSW_QRSDetector(rawecg,fs,mask,isplot)
+
+starttime = datetime("now");
+
+% adapted by Florian Kristof to output unswdata as one variable instead of
+% [qrs,RRlist,nRR,mRR,nSections] as many vectors. This was done to
+% enable usage from Python. Additionally timing funcitonality was added. Last modified 12.2022.
+
 %%
 % [qrs,RRlist,nRR,mRR,nSections] = UNSW_QRSDetector(rawecg,fs,mask,isplot)
 %
@@ -238,6 +245,14 @@ if isplot == 1
     ylabel('ECG (mV)'); 
     legend('Raw ECG','Masked ECG','QRS Locations');
 end
+
+unswdata.qrs = qrs;
+unswdata.RRlist = RRlist;
+unswdata.nRR = nRR;
+unswdata.mRR = mRR;
+unswdata.nSections = nSections;
+unswdata.runtime = seconds(datetime("now") - starttime);
+
 
 %%
 % CalculateRRInterval

@@ -1,4 +1,11 @@
-function [qrs_pos,sign,en_thres] = qrs_detect2(ecg,varargin)
+function jqrsdata = qrs_detect2(ecg,varargin)
+
+starttime = datetime("now");
+
+% adapted by Florian Kristof to output jqrsdata as one variable instead of
+% [qrs_pos,sign,en_thres] as many vectors. This was done to
+% enable usage from Python. Additionally timing funcitonality was added. Last modified 12.2022.
+
 % QRS detector based on the P&T method. This is an offline implementation
 % of the detector.
 %
@@ -275,6 +282,11 @@ if debug
     allAxesInFigure = findall(gcf,'type','axes');
     set(allAxesInFigure,'fontSize',FONTSIZE);
 end
+
+jqrsdata.qrs_pos = qrs_pos;
+jqrsdata.sign = sign;
+jqrsdata.en_thres = en_thres;
+jqrsdata.runtime = seconds(datetime("now") - starttime);
 
 
 % NOTES

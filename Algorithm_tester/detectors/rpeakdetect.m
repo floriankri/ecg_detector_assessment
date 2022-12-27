@@ -1,8 +1,10 @@
 function rpeakdata  = rpeakdetect(data,samp_freq,thresh,testmode)
 
+starttime = datetime("now");
+
 % adapted by Florian Kristof to output rpeakdata as one variable instead of
 % [hrv, R_t, R_amp, R_index, S_t, S_amp] as many vectors. This was done to
-% enable usage from Python.
+% enable usage from Python. Additionally timing funcitonality was added.Last modified 12.2022.
 
 % [hrv, R_t, R_amp, R_index, S_t, S_amp]  = rpeakdetect(data, samp_freq, thresh, testmode); 
 % R_t == RR points in time, R_amp == amplitude
@@ -152,12 +154,13 @@ hrv  = diff(R_t);
 resp = R_amp-S_amp; 
 
 %%%%%%%%%%%%%%%%%%%%
-rpeakdata.hrv = hrv
-rpeakdata.R_t = R_t
-rpeakdata.R_amp = R_amp
-rpeakdata.R_index = R_index
-rpeakdata.S_t = S_t
-rpeakdata.S_amp = S_amp
+rpeakdata.hrv = hrv;
+rpeakdata.R_t = R_t;
+rpeakdata.R_amp = R_amp;
+rpeakdata.R_index = R_index;
+rpeakdata.S_t = S_t;
+rpeakdata.S_amp = S_amp;
+rpeakdata.runtime = seconds(datetime("now") - starttime);
 %%%%%%%%%%%%%%%%%%%%
 if (testmode~=0)
 figure(1)

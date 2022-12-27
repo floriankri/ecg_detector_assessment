@@ -1,4 +1,11 @@
-function [R_peak,RR_int,parameters,check] = peak_detection(parameters,signal,fs,parameters_check)
+function rdecodata = peak_detection(parameters,signal,fs,parameters_check)
+
+starttime = datetime("now");
+
+% adapted by Florian Kristof to output rdecodata as one variable instead of
+% [R_peak,RR_int,parameters,check] as many vectors. This was done to
+% enable usage from Python. Additionally timing funcitonality was added.Last modified 12.2022.
+
 % Output:
 % R_peak     - Location of the R-peaks in samples
 % RR_int     - Intervals between the R-peaks in ms
@@ -225,6 +232,12 @@ else
     % Set check
     check=0;
 end
+
+rdecodata.R_peak = R_peak;
+rdecodata.RR_int = RR_int;
+rdecodata.parameters = parameters;
+rdecodata.check = check;
+rdecodata.runtime = seconds(datetime("now") - starttime);
 end
 
 

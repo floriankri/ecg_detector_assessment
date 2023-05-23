@@ -18,8 +18,10 @@ This code has been created and tested with **Visual Studio Code 1.73.0**, **MATL
 2. Install **Python 3.9**
 3. Install **MATLAB R2022a** or higher
 4. Install **MATLAB Engine API for Python** available [here](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html) in Visual Studio Code
-5. `pip install requirements.txt` in Visual Studio Code
-6. Try executing `/Algorithm_tester/main.ipynb` and see if and where it runs into errors
+5. Install the **VS Code Python extension**
+6. Clone the **[ecg_detector_assessment](https://github.com/floriankri/ecg_detector_assessment) repository**.
+7. Run `pip install requirements.txt` in Visual Studio Code
+8. Try executing `/Algorithm_tester/main.ipynb` and see if and where it runs into errors
 
 ### Annotator
 1. Install **MATLAB R2022a** or higher

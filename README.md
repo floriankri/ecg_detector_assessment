@@ -16,12 +16,14 @@ This code has been created and tested with **Visual Studio Code 1.73.0**, **MATL
 ### Algorithm Tester
 1. Install **[Visual Studio Code](https://code.visualstudio.com)**
 2. Install **Python 3.9**
-3. Install **MATLAB R2022a** or higher (including the following toolboxes: 'Fuzzy Logic', 'Statistics and Machine Learning', 'Signal Processing')
-4. Install **MATLAB Engine API for Python** available [here](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html) in Visual Studio Code
-5. Install the **VS Code Python extension**
-6. Clone the **[ecg_detector_assessment](https://github.com/floriankri/ecg_detector_assessment) repository**.
-7. Run `pip install requirements.txt` in Visual Studio Code
-8. Try executing `/Algorithm_tester/main.ipynb` and see if and where it runs into errors
+3. Install **MATLAB R2022a** or higher
+   - _NB: We installed the following toolboxes: 'Fuzzy Logic', 'Statistics and Machine Learning', 'Signal Processing'._
+5. Install **MATLAB Engine API for Python** available [here](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html) in Visual Studio Code.
+   - _NB: When installing matlabengine on a Mac we: (i) installed Matlab_R2022b and added it to the paths using ``export PATH=<matlabroot>/bin/:$PATH`` and ``export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:<matlabroot>/bin/maci64``; (ii) created a Miniconda environment running Python version 3.9 (which provided a python interpreter for an intel chip) using the command ``conda create -n ecgbeats python=3.9``; (iii) activated this environment using ``conda activate ecgbeats``; and (iv) installed matlabengine using ``cd <matlabroot>/extern/engines/python`` and ``python3 setup.py install``._
+7. Install the **VS Code Python extension**
+8. Clone the **[ecg_detector_assessment](https://github.com/floriankri/ecg_detector_assessment) repository**.
+9. Run `pip install requirements.txt` in Visual Studio Code
+10. Try executing `/Algorithm_tester/main.ipynb` and see if and where it runs into errors
 
 ### Annotator
 1. Install **MATLAB R2022a** or higher

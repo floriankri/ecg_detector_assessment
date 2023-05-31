@@ -16,7 +16,7 @@ This code has been created and tested with **Visual Studio Code 1.73.0**, **MATL
 ### Algorithm Tester
 1. Install **[Visual Studio Code](https://code.visualstudio.com)**
 2. Install **Python 3.9**
-3. Install **MATLAB R2022a** or higher
+3. Install **MATLAB R2022a** or higher (including the following toolboxes: 'Fuzzy Logic', 'Statistics and Machine Learning', 'Signal Processing')
 4. Install **MATLAB Engine API for Python** available [here](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html) in Visual Studio Code
 5. Install the **VS Code Python extension**
 6. Clone the **[ecg_detector_assessment](https://github.com/floriankri/ecg_detector_assessment) repository**.

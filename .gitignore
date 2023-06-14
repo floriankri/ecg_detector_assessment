@@ -202,3 +202,14 @@ MATLAB/wfdb_toolbox
 # UNSW files
 !medianfilter.mexw64
 !minmaxfilter.mexw64
+
+# Mac files
+*.DS_Store
+
+# SAFER Database files
+Algorithm_tester/databases/SAFER/*.dat
+Algorithm_tester/databases/SAFER/*.hea
+Algorithm_tester/databases/SAFER/*.csv
+Algorithm_tester/databases/SAFER/*.atr
+Algorithm_tester/databases/SAFER/*.atrerror
+Algorithm_tester/databases/SAFER/*.atrnone

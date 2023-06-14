@@ -24,7 +24,7 @@ This code has been created and tested with **Visual Studio Code 1.73.0**, **MATL
 8. Clone the **[ecg_detector_assessment](https://github.com/floriankri/ecg_detector_assessment) repository**.
 9. Run `pip install requirements.txt` in Visual Studio Code
 10. Try executing `/Algorithm_tester/main.ipynb` and see if and where it runs into errors
-    - _NB: When using the UNSW beat detector we had to recompile the mex files._
+    - _NB: When using the UNSW beat detector we had to recompile the mex files using the following commands: `mex <path>/ecg_detector_assessment/Algorithm_tester/detectors/unsw/minmaxfilter.cpp` and `mex <path>/ecg_detector_assessment/Algorithm_tester/detectors/unsw/medianfilter.cpp`_
 
 ### Annotator
 1. Install **MATLAB R2022a** or higher

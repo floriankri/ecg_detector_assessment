@@ -40,6 +40,9 @@ starttime = datetime("now");
 if(fs<50)
     error('This function requires a sampling rate of at least 50 Hz');
 end
+if nargin<4
+    isplot = false;
+end
 if nargin<3
     finalmask=[];
     disp('You have not entered a mask. Continuing without.');

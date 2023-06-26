@@ -213,3 +213,6 @@ Algorithm_tester/databases/SAFER/*.csv
 Algorithm_tester/databases/SAFER/*.atr
 Algorithm_tester/databases/SAFER/*.atrerror
 Algorithm_tester/databases/SAFER/*.atrnone
+
+# autosave files
+Algorithm_tester/data_autosave/*.*

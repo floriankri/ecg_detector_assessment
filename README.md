@@ -11,6 +11,7 @@ This code has been created and tested with **Visual Studio Code 1.73.0**, **MATL
 
 ## Citation/DOI
 
+Kristof _et al._, 'Detecting beats in the photoplethysmogram: benchmarking open-source algorithms', [under review], [https://doi.org/10.1101/2023.11.07.23298202](https://doi.org/10.1101/2023.11.07.23298202)
 
 ## Installation
 ### Algorithm Tester

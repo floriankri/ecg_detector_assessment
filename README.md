@@ -20,13 +20,15 @@ Kristof _et al._, 'Detecting beats in the photoplethysmogram: benchmarking open-
    - _NB: You can have different versions of Python installed so make sure you only installed Python 3.9_
 3. Install **MATLAB R2022a** or higher
    - _NB: We installed the following toolboxes: 'Fuzzy Logic', 'Statistics and Machine Learning', 'Signal Processing'._
-5. Install **MATLAB Engine API for Python** available [here](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html) in Visual Studio Code.
+4. Install **MATLAB Engine API for Python** available [here](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html) in Visual Studio Code.
    - _NB: When installing matlabengine on a Mac we: (i) installed Matlab_R2022b and added it to the paths using ``export PATH=<matlabroot>/bin/:$PATH`` and ``export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:<matlabroot>/bin/maci64``; (ii) created a Miniconda environment running Python version 3.9 (which provided a python interpreter for an intel chip) using the command ``conda create -n ecgbeats python=3.9``; (iii) activated this environment using ``conda activate ecgbeats``; and (iv) installed matlabengine using ``cd <matlabroot>/extern/engines/python`` and ``python3 setup.py install``._
-   - _NB: On Windows (i) Find the matlabroot (ii) created a Miniconda environment running Python version 3.9 (which provided a python interpreter for an intel chip) using the command ``conda create -n ecgbeats python=3.9``; (iii) activated this environment using ``conda activate ecgbeats``; and (iv) In the terminal (make sure you are in Administratory Mode) type ``cd <matlabroot>/extern/engines/python`` and type ``python3 -m pip install .`` 
-7. Install the **VS Code Python extension**
-8. Clone the **[ecg_detector_assessment](https://github.com/floriankri/ecg_detector_assessment) repository**.
-9. Run `pip install requirements.txt` in Visual Studio Code
-10. Try executing `/Algorithm_tester/main.ipynb` and see if and where it runs into errors
+   - _NB: (i) Find the ``matlabroot`` (i.e. where MATLAB is installed in your device) (ii) create a Miniconda environment running Python version 3.9 using the command ``conda create -n ecgbeats python=3.9``; (iii) activated this environment using ``conda activate ecgbeats``; and (iv) In the terminal (make sure you are in Administratory Mode) type ``cd <matlabroot>/extern/engines/python`` and type ``python3 -m pip install .``_
+   - _NB: If you see  ``error: could not create 'build': Permission denied``, make sure that you are running as administrator!_
+5. Install the **VS Code Python extension**
+6. Clone the **[ecg_detector_assessment](https://github.com/floriankri/ecg_detector_assessment) repository**.
+7. Run `pip install requirements.txt` in Visual Studio Code (in the terminal)
+    - _NB: you may run into errors on the line of ``matlabengineforpython===R2022a`` (or other versions depending on your version). In this case, just delete the line as I deleted it and it worked out fine_
+8. Try executing `/Algorithm_tester/main.ipynb` and see if and where it runs into errors
     - _NB: When using the UNSW beat detector we had to recompile the mex files using the following commands: `mex <path>/ecg_detector_assessment/Algorithm_tester/detectors/unsw/minmaxfilter.cpp` and `mex <path>/ecg_detector_assessment/Algorithm_tester/detectors/unsw/medianfilter.cpp`_
 
 ### Annotator

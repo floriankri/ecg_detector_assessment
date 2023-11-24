@@ -16,11 +16,13 @@ Kristof _et al._, 'Detecting beats in the photoplethysmogram: benchmarking open-
 ## Installation
 ### Algorithm Tester
 1. Install **[Visual Studio Code](https://code.visualstudio.com)**
-2. Install **Python 3.9**
+2. Install **Python 3.9** 
+   - _NB: You can have different versions of Python installed so make sure you only installed Python 3.9_
 3. Install **MATLAB R2022a** or higher
    - _NB: We installed the following toolboxes: 'Fuzzy Logic', 'Statistics and Machine Learning', 'Signal Processing'._
 5. Install **MATLAB Engine API for Python** available [here](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html) in Visual Studio Code.
    - _NB: When installing matlabengine on a Mac we: (i) installed Matlab_R2022b and added it to the paths using ``export PATH=<matlabroot>/bin/:$PATH`` and ``export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:<matlabroot>/bin/maci64``; (ii) created a Miniconda environment running Python version 3.9 (which provided a python interpreter for an intel chip) using the command ``conda create -n ecgbeats python=3.9``; (iii) activated this environment using ``conda activate ecgbeats``; and (iv) installed matlabengine using ``cd <matlabroot>/extern/engines/python`` and ``python3 setup.py install``._
+   - _NB: On Windows (i) Find the matlabroot (ii) created a Miniconda environment running Python version 3.9 (which provided a python interpreter for an intel chip) using the command ``conda create -n ecgbeats python=3.9``; (iii) activated this environment using ``conda activate ecgbeats``; and (iv) In the terminal (make sure you are in Administratory Mode) type ``cd <matlabroot>/extern/engines/python`` and type ``python3 -m pip install .`` 
 7. Install the **VS Code Python extension**
 8. Clone the **[ecg_detector_assessment](https://github.com/floriankri/ecg_detector_assessment) repository**.
 9. Run `pip install requirements.txt` in Visual Studio Code
